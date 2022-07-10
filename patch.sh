@@ -19,6 +19,7 @@ declare -A binhash_version_list=(
     ["c2f07f4cebf0bfb63e3ca38f811fd5b6112a797e"]="7.0.1-42216-0_7.0.1-42218-3"
     ["796ac7fab2dcad7978a0e8ae48abc9150aba916c"]="7.1-42550-0_7.1-42661-2"
     ["22445f5b0d8b6714954b50930c47b8805cf32b98"]="7.1-42550-0_7.1-42661-2"
+    ["c52492b4b4dc396ba27daaa4550c2c00d0ef3bb6"]="7.1-42550-0_7.1-42661-3"
 )
 
 declare -A patchhash_binhash_list=(
@@ -176,6 +177,7 @@ declare -a versions_list=(
     "7.1 42661-0"
     "7.1 42661-1"
     "7.1 42661-2"
+    "7.1 42661-3"
 )
 
 #functions
