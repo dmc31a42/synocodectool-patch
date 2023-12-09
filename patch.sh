@@ -19,6 +19,9 @@ declare -A binhash_version_list=(
     ["c2f07f4cebf0bfb63e3ca38f811fd5b6112a797e"]="7.0.1-42216-0_7.0.1-42218-3"
     ["796ac7fab2dcad7978a0e8ae48abc9150aba916c"]="7.1-42661-0_7.1-42661-0"
     ["22445f5b0d8b6714954b50930c47b8805cf32b98"]="7.1-42661-0_7.1-42661-0"
+    ["18461b62813166652fd64a96e06237fde81925f7"]="7.1.1-42962-0_7.1.1-42962-6"
+    ["d316d5b2b080346b4bc197ad5ad7994ac043a15d"]="7.2-64570-0_7.2-64570-1"
+    ["a205aa337d808213cf6d4d839b035cde0237b424"]="7.2.1-69057-0_7.2.1-69057-3"
 )
 
 declare -A patchhash_binhash_list=(
@@ -30,6 +33,9 @@ declare -A patchhash_binhash_list=(
     ["873749b00e1624df4b01335e0b69102acc185eb9"]="c2f07f4cebf0bfb63e3ca38f811fd5b6112a797e"
     ["06d543b2aab5ea73600ca96497febdad96dc7864"]="796ac7fab2dcad7978a0e8ae48abc9150aba916c"
     ["3a5ed18dc41ff243f3481b6e3cf4770651df0b54"]="22445f5b0d8b6714954b50930c47b8805cf32b98"
+    ["4bfa2a72da607752435e432545f98f1a0b3815a8"]="18461b62813166652fd64a96e06237fde81925f7"
+    ["8ffe49d91dc0fcd3268ff1afcbc9132d1ae634d1"]="d316d5b2b080346b4bc197ad5ad7994ac043a15d"
+    ["1f4491bf5f27f0719ddebdcab6ff4eff56c64b2c"]="a205aa337d808213cf6d4d839b035cde0237b424"
 )
 
 declare -A binhash_patch_list=(
@@ -41,6 +47,9 @@ declare -A binhash_patch_list=(
     ["c2f07f4cebf0bfb63e3ca38f811fd5b6112a797e"]="00002dc0: 000084c0eb2141b8c1000000b9586c40\n00003780: 1d000084c0e90d0100009041b8f60000"
     ["796ac7fab2dcad7978a0e8ae48abc9150aba916c"]="000035b0: 74cd4889efe8f623000084c0eb004c8d\n000040a0: fdffff4c89efe80519000084c0eb0048"
     ["22445f5b0d8b6714954b50930c47b8805cf32b98"]="00003850: e7e89a27000084c0eb00488dac249000\n00004340: fdffff4c89efe8a51c000084c0eb0048"
+    ["18461b62813166652fd64a96e06237fde81925f7"]="000038e0: e7e89a27000084c0eb00488dac249000\n000043d0: fdffff4c89efe8a51c000084c0eb0048"
+    ["d316d5b2b080346b4bc197ad5ad7994ac043a15d"]="00004220: 08fdffffe87722000084c090e9000000\n00004390: ffe80a21000084c090e900000000488b"
+    ["a205aa337d808213cf6d4d839b035cde0237b424"]="00004220: 08fdffffe87722000084c090e9000000\n00004390: ffe80a21000084c090e900000000488b"
 )
 
 declare -a binpath_list=()
@@ -157,6 +166,24 @@ declare -a versions_list=(
     "7.0.1 42218-2"
     "7.0.1 42218-3"
     "7.1 42661-0"
+    "7.1 42661-1"
+    "7.1 42661-2"
+    "7.1 42661-3"
+    "7.1 42661-4"
+    "7.1.1 42951"
+    "7.1.1 42962-0"
+    "7.1.1 42962-1"
+    "7.1.1 42962-2"
+    "7.1.1 42962-3"
+    "7.1.1 42962-4"
+    "7.1.1 42962-5"
+    "7.1.1 42962-6"
+    "7.2 64570-0"
+    "7.2 64570-1"
+    "7.2.1 69057-0"
+    "7.2.1 69057-1"
+    "7.2.1 69057-2"
+    "7.2.1 69057-3"
 )
 
 #functions
@@ -266,11 +293,14 @@ patch () {
                 if [ ! -e "$conf_path/$conf_file" ] ; then
                     mkdir -p $conf_path
                     echo "$conf_string" > "$conf_path/$conf_file"
+                    chattr +i "$conf_path/$conf_file"
                     echo "Spoofed activation.conf created successfully"
                     exit 0
                     else
+                    chattr -i "$conf_path/$conf_file"
                     rm "$conf_path/$conf_file"
                     echo "$conf_string" > "$conf_path/$conf_file"
+                    chattr +i "$conf_path/$conf_file"
                     echo "Spoofed activation.conf created successfully"
                     exit 0
                 fi
@@ -293,11 +323,14 @@ patch () {
             if [ ! -e "$conf_path/$conf_file" ] ; then
                 mkdir -p $conf_path
                 echo "$conf_string" > "$conf_path/$conf_file"
+                chattr +i "$conf_path/$conf_file"
                 echo "Spoofed activation.conf created successfully"
                 exit 0
             else
+                chattr -i "$conf_path/$conf_file"
                 rm "$conf_path/$conf_file"
                 echo "$conf_string" > "$conf_path/$conf_file"
+                chattr +i "$conf_path/$conf_file"
                 echo "Spoofed activation.conf created successfully"
                 exit 0
             fi
